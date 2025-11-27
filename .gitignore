@@ -205,3 +205,23 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+# Project specific
+# Model files
+*.pkl
+*.joblib
+*.h5
+*.model
+
+# Data files (keep sample files)
+*.csv
+*.xlsx
+*.xls
+!sample_*.csv
+
+# NLTK data
+nltk_data/
+
+# OS files
+.DS_Store
+Thumbs.db
