@@ -22,7 +22,7 @@ if not API_KEY:
 else:
     genai.configure(api_key=API_KEY)
     # Listeden bulduğumuz garantili model ismini kullanıyoruz:
-    model = genai.GenerativeModel('models/gemini-2.5-pro-preview-03-25')
+    model = genai.GenerativeModel('models/gemini-flash-latest')
     
 
 def get_topics():
@@ -39,7 +39,7 @@ def get_topics():
 
 def generate_ai_data():
     print(f"--- AI Veri Üretimi Başlıyor (Hedef: {HEDEF_SAYI}) ---")
-    print(f"Kullanılan Model: models/gemini-2.0-flash")
+    print(f"Kullanılan Model: models/gemini-flash-latest")
     
     if os.path.exists(DOSYA_ADI):
         df_mevcut = pd.read_csv(DOSYA_ADI)
