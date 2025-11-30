@@ -90,35 +90,36 @@ with st.sidebar:
     st.markdown("---")
     st.subheader("Geliştirici Ekip")
 
-    # --- EKİP ÜYELERİ (Görselli) ---
+    # --- EKİP ÜYELERİ (Görselli - Mesleksiz) ---
     
-    # 1. Kişi (Fatma - profil1)
+    # 1. Kişi (Fatma)
     col_img, col_txt = st.columns([1, 2])
     with col_img:
         if os.path.exists("images/profil1.png"):
             st.image("images/profil1.png", width=60)
     with col_txt:
-        st.markdown("**Fatma Aytış**\n<span style='font-size:12px; color:gray;'>AI Developer</span>", unsafe_allow_html=True)
+        # Meslek kaldırıldı, dikey ortalama için boşluk eklenebilir veya sade bırakılabilir
+        st.markdown("<br>**Fatma Aytaş**", unsafe_allow_html=True)
 
-    # 2. Kişi (Pınar - profil2)
+    # 2. Kişi (Pınar)
     col_img, col_txt = st.columns([1, 2])
     with col_img:
         if os.path.exists("images/profil2.png"):
             st.image("images/profil2.png", width=60)
     with col_txt:
-        st.markdown("**Pınar Eray**\n<span style='font-size:12px; color:gray;'>Data Engineer</span>", unsafe_allow_html=True)
+        st.markdown("<br>**Pınar Eray**", unsafe_allow_html=True)
 
-    # 3. Kişi (Yağmur - profil3)
+    # 3. Kişi (Yağmur)
     col_img, col_txt = st.columns([1, 2])
     with col_img:
         if os.path.exists("images/profil3.png"):
             st.image("images/profil3.png", width=60)
     with col_txt:
-        st.markdown("**Yağmur Sultan Ekin**\n<span style='font-size:12px; color:gray;'>UI/UX Designer</span>", unsafe_allow_html=True)
+        st.markdown("<br>**Yağmur Sultan Ekin**", unsafe_allow_html=True)
 
     st.markdown("---")
     st.info("💡 **Proje Hakkında:**\nBu yazılım, akademik makale özetlerinin Yapay Zeka mı yoksa İnsan mı tarafından yazıldığını tespit eder.")
-    st.caption("v1.0.4 - Release")
+    st.caption("v1.0.5 - Final Release")
 
 # --- 4. ANA EKRAN ---
 
@@ -140,7 +141,9 @@ if st.button("Analizi Başlat"):
         vectorized_text = vectorizer.transform([cleaned_text])
 
         st.markdown("---")
-        st.markdown("### 📊 Algoritma Sonuçları")
+        
+        # --- DEĞİŞİKLİK BURADA: Başlığı ortaladık ve ikonu kaldırdık ---
+        st.markdown("<h3 style='text-align: center; color: #2C3E50; margin-bottom: 30px;'>Algoritma Sonuçları</h3>", unsafe_allow_html=True)
         
         c1, c2, c3 = st.columns(3)
 
