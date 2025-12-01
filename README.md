@@ -1,7 +1,7 @@
 # 🕵️ Human or AI - Metin Analiz Sistemi
 
 <div align="center">
-  <img src="images/banner.png" alt="Proje Görseli" width="100%">
+  <img src="images/banner.png" alt="Proje Görseli" width="60%">
 </div>
 ---
 
