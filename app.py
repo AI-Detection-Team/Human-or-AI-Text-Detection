@@ -11,9 +11,21 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# --- CSS TASARIM (Güzelleştirme) ---
+# --- CSS TASARIM (Güzelleştirme + GİZLEME KODLARI) ---
 st.markdown("""
 <style>
+    /* 1. GİZLEME KODLARI (Deploy, Menu, Footer Yok Etme) */
+    #MainMenu {visibility: hidden;}
+    footer {visibility: hidden;}
+    header {visibility: hidden;}
+    [data-testid="stToolbar"] {visibility: hidden; display: none;}
+    
+    /* Üst boşluğu azaltma (Header gidince oluşan boşluk için) */
+    .block-container {
+        padding-top: 1rem;
+    }
+
+    /* 2. MEVCUT TASARIM KODLARI (Sizin kodunuz) */
     /* Ana başlık */
     .main-title {
         font-size: 3rem;
@@ -49,7 +61,7 @@ st.markdown("""
     .result-box {
         padding: 15px;
         border-radius: 15px;
-        background-color: #ffffff;
+        background-color: #26273B;
         border: 1px solid #e9ecef;
         text-align: center;
         box-shadow: 0 4px 15px rgba(0,0,0,0.1);
@@ -98,7 +110,6 @@ with st.sidebar:
         if os.path.exists("images/profil1.png"):
             st.image("images/profil1.png", width=60)
     with col_txt:
-        # Meslek kaldırıldı, dikey ortalama için boşluk eklenebilir veya sade bırakılabilir
         st.markdown("<br>**Fatma Aytaş**", unsafe_allow_html=True)
 
     # 2. Kişi (Pınar)
