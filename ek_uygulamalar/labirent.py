@@ -13,13 +13,13 @@ except Exception as e:
     print(f"Hata: {e}")
     sys.exit()
 
-TILE_SIZE = 50
+TILE_SIZE = 50 
 COLS, ROWS = 15, 12
 WIDTH, HEIGHT = COLS * TILE_SIZE, ROWS * TILE_SIZE + 80 # Alt panel için +80 px
 
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Labirent - Retry Özellikli")
-clock = pygame.time.Clock()
+clock = pygame.time.Clock()# FPS (kare hızı) kontrolü için saat objesi
 
 # Fontlar
 font_title = pygame.font.SysFont("Arial", 36, bold=True)
@@ -40,7 +40,7 @@ COLOR_P1_BACKUP = (100, 200, 255)
 COLOR_P2_BACKUP = (255, 100, 100) 
 COLOR_CHEESE_BACKUP = (255, 200, 50) 
 
-# --- RESİM YÜKLEME ---
+# --- RESİM YÜKLEME fare --- 
 BASE_PATH = os.path.dirname(os.path.abspath(__file__))
 IMG_PATH = os.path.join(BASE_PATH, "images") 
 if not os.path.exists(IMG_PATH): IMG_PATH = os.path.join(BASE_PATH, "resimler")
@@ -59,32 +59,32 @@ img_mouse2 = load_and_scale("mouse2.png")
 img_cheese = load_and_scale("cheese.png")
 
 # --- DEĞİŞKENLER ---
-current_map = []
+current_map = [] #labirent haritası
 p1_pos = [1, 1]
 p2_pos = [1, 1]
 mode = "MENU" 
-moves_p1 = 0
+moves_p1 = 0 #hamle sayacı
 moves_p2 = 0
 winner_msg = ""
-auto_path = []
+auto_path = [] # Bilgisayarın bulduğu çözüm yolu
 p1_name = "Oyuncu 1"
 p2_name = "Oyuncu 2"
 input_active_idx = 1
 temp_name = ""
 
-# --- FONKSİYONLAR ---
+# --- FONKSİYONLAR --- """Recursive Backtracking algoritması ile rastgele labirent oluşturur."""
 def generate_maze(rows, cols):
     maze = [[1 for _ in range(cols)] for _ in range(rows)]
     def carve(cx, cy):
         dirs = [(0, 2), (0, -2), (2, 0), (-2, 0)]
-        random.shuffle(dirs)
+        random.shuffle(dirs) # Rastgelelik katmak için yönleri karıştırıyoruz
         for dx, dy in dirs:
             nx, ny = cx + dx, cy + dy
             if 0 <= nx < rows and 0 <= ny < cols and maze[nx][ny] == 1:
                 maze[cx + dx//2][cy + dy//2] = 0
                 maze[nx][ny] = 0
                 carve(nx, ny)
-    maze[1][1] = 0
+    maze[1][1] = 0 # Başlangıç noktası
     carve(1, 1)
     maze[1][1] = 9 
     placed = False
@@ -95,10 +95,11 @@ def generate_maze(rows, cols):
             placed = True
     return maze
 
+#"""Oyunu sıfırlar ve başlatır."""
 def start_game(selected_mode):
     global current_map, p1_pos, p2_pos, moves_p1, moves_p2, mode, auto_path, p1_name
     current_map = generate_maze(ROWS, COLS)
-    p1_pos = [1, 1]
+    p1_pos = [1, 1] # Konumları sıfırla
     p2_pos = [1, 1]
     moves_p1 = 0
     moves_p2 = 0
@@ -109,9 +110,10 @@ def start_game(selected_mode):
         auto_path = get_auto_path()
         p1_name = "Bilgisayar"
 
+#"""Bilgisayar için labirenti çözen fonksiyon."""
 def get_auto_path():
     path = []
-    visited = set()
+    visited = set() # Ziyaret edilen kareleri tutar (sonsuz döngüyü engeller)
     def solve(r, c):
         if current_map[r][c] == 2: return True
         visited.add((r,c))
@@ -123,7 +125,7 @@ def get_auto_path():
                 if current_map[nr][nc] != 1 and (nr,nc) not in visited:
                     path.append((nr, nc))
                     if solve(nr, nc): return True
-                    path.pop()
+                    path.pop()# Ziyaret edilen kareleri tutar (sonsuz döngüyü engeller)
         return False
     solve(p1_pos[0], p1_pos[1])
     return path
